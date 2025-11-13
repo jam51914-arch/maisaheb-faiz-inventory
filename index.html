@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <link rel="icon" type="image/svg+xml" href="/vite.svg" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Smart Stock Inventory Manager</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+      tailwind.config = {
+        theme: {
+          extend: {
+            colors: {
+              'primary': '#4299e1', // Muted Blue
+              'secondary': '#4a5568', // Slate Gray
+              'accent': '#63b3ed', // Lighter Muted Blue
+              'danger': '#e53e3e',
+              'warning': '#dd6b20',
+              'success': '#38a169',
+              'light': '#e2e8f0', // Off-white text
+              'dark': '#1a202c', // Dark Charcoal (main bg)
+              'dark-accent': '#2d3748', // Lighter Charcoal (card bg)
+            }
+          }
+        }
+      }
+    </script>
+    <style>
+      @media print {
+        body {
+          background-color: white !important;
+        }
+        .no-print {
+          display: none !important;
+        }
+        main {
+          padding: 1rem !important;
+          overflow: visible !important;
+        }
+        div[class*="ml-64"], div[class*="ml-16"] {
+           margin-left: 0 !important;
+        }
+        /* Undo dark theme for printing */
+        .bg-dark, .bg-dark-accent, .border-slate-800, .hover\:bg-slate-800:hover {
+          background-color: white !important;
+          color: black !important;
+          border-color: #ddd !important;
+        }
+        .text-light, .text-slate-300, .text-slate-400, .font-medium, .text-slate-500, .text-slate-200 {
+          color: black !important;
+        }
+        .text-success { color: green !important; }
+        .text-danger { color: red !important; }
+        span[class*="bg-secondary"] {
+            background-color: #eee !important;
+            color: black !important;
+            border: 1px solid #ccc;
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+        th, td {
+            padding: 8px;
+            text-align: left;
+        }
+        thead {
+            display: table-header-group; /* Repeat header on each page */
+        }
+        tr {
+            page-break-inside: avoid;
+        }
+      }
+    </style>
+  <script type="importmap">
+{
+  "imports": {
+    "react": "https://aistudiocdn.com/react@^19.2.0",
+    "react-dom/": "https://aistudiocdn.com/react-dom@^19.2.0/",
+    "react/": "https://aistudiocdn.com/react@^19.2.0/",
+    "@google/genai": "https://aistudiocdn.com/@google/genai@^1.29.0",
+    "recharts": "https://aistudiocdn.com/recharts@^3.4.1"
+  }
+}
+</script>
+</head>
+  <body class="bg-dark text-light">
+    <div id="root"></div>
+    <script type="module" src="/index.tsx"></script>
+  </body>
+</html>
