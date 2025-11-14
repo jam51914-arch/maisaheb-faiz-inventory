@@ -1,3 +1,4 @@
+
 import React from 'react';
 import { View } from '../types';
 import { ICONS } from '../constants';
@@ -46,6 +47,7 @@ const Sidebar: React.FC<SidebarProps> = ({ currentView, setView, isOpen, setIsOp
         <ul>
           <NavItem view="dashboard" label="Dashboard" icon={ICONS.dashboard} currentView={currentView} setView={setView} isSidebarOpen={isOpen} />
           <NavItem view="inventory" label="Inventory" icon={ICONS.inventory} currentView={currentView} setView={setView} isSidebarOpen={isOpen} />
+          <NavItem view="suppliers" label="Suppliers" icon={ICONS.suppliers} currentView={currentView} setView={setView} isSidebarOpen={isOpen} />
           <NavItem view="billing" label="Billing Screen" icon={ICONS.billing} currentView={currentView} setView={setView} isSidebarOpen={isOpen} />
           {/* FIX: Corrected typo in prop name from 'currentVew' to 'currentView'. */}
           <NavItem view="reports" label="Reports & AI" icon={ICONS.reports} currentView={currentView} setView={setView} isSidebarOpen={isOpen} />

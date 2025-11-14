@@ -1,6 +1,5 @@
 
-
-import { InventoryItem } from './types';
+import { InventoryItem, Supplier, PurchaseOrder } from './types';
 import React from 'react';
 
 export const CATEGORIES = [
@@ -98,6 +97,50 @@ export const INITIAL_INVENTORY: InventoryItem[] = itemNames.map((name, index) =>
     };
 });
 
+export const INITIAL_SUPPLIERS: Supplier[] = [
+    { id: 1, name: 'Global Grocers Inc.', contactPerson: 'Raj Patel', phone: '9876543210', email: 'raj.patel@ggrocers.com', address: '123 Market St, Mumbai' },
+    { id: 2, name: 'FarmFresh Produce', contactPerson: 'Priya Singh', phone: '8765432109', email: 'priya@farmfresh.com', address: '456 Agri Complex, Pune' },
+    { id: 3, name: 'Quality Meats Co.', contactPerson: 'Amit Kumar', phone: '7654321098', email: 'amit.k@qmeats.co', address: '789 Industrial Area, Delhi' }
+];
+
+export const INITIAL_PURCHASE_ORDERS: PurchaseOrder[] = [
+    { 
+        id: 1001, 
+        supplierId: 1, 
+        orderDate: getDateWithOffset(-10), 
+        expectedDeliveryDate: getDateWithOffset(-2), 
+        status: 'Delivered', 
+        items: [
+            { inventoryItemId: 11, name: 'Chawal', quantity: 100, unit: 'kg', purchasePrice: 45 },
+            { inventoryItemId: 1, name: 'Tuwar Daal', quantity: 50, unit: 'kg', purchasePrice: 90 }
+        ],
+        totalValue: (100 * 45) + (50 * 90)
+    },
+    { 
+        id: 1002, 
+        supplierId: 2, 
+        orderDate: getDateWithOffset(-5), 
+        expectedDeliveryDate: getDateWithOffset(1), 
+        status: 'Shipped', 
+        items: [
+            { inventoryItemId: 125, name: 'Piyaj', quantity: 20, unit: 'kg', purchasePrice: 30 },
+            { inventoryItemId: 127, name: 'Tomato', quantity: 20, unit: 'kg', purchasePrice: 50 }
+        ],
+        totalValue: (20 * 30) + (20 * 50)
+    },
+    { 
+        id: 1003, 
+        supplierId: 1, 
+        orderDate: getDateWithOffset(-1), 
+        expectedDeliveryDate: getDateWithOffset(7), 
+        status: 'Pending', 
+        items: [
+            { inventoryItemId: 10, name: 'Sugar', quantity: 200, unit: 'kg', purchasePrice: 40 }
+        ],
+        totalValue: 200 * 40
+    }
+];
+
 
 // FIX: Converted JSX to React.createElement calls to be valid in a .ts file
 export const ICONS = {
@@ -106,6 +149,7 @@ export const ICONS = {
     billing: React.createElement('svg', { xmlns: "http://www.w3.org/2000/svg", className: "h-6 w-6", fill: "none", viewBox: "0 0 24 24", stroke: "currentColor" }, React.createElement('path', { strokeLinecap: "round", strokeLinejoin: "round", strokeWidth: 2, d: "M3 10h18M7 15h1m4 0h1m-7 4h12a3 3 0 003-3V8a3 3 0 00-3-3H6a3 3 0 00-3 3v8a3 3 0 003 3z" })),
     reports: React.createElement('svg', { xmlns: "http://www.w3.org/2000/svg", className: "h-6 w-6", fill: "none", viewBox: "0 0 24 24", stroke: "currentColor" }, React.createElement('path', { strokeLinecap: "round", strokeLinejoin: "round", strokeWidth: 2, d: "M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z" })),
     history: React.createElement('svg', { xmlns: "http://www.w3.org/2000/svg", className: "h-6 w-6", fill: "none", viewBox: "0 0 24 24", stroke: "currentColor" }, React.createElement('path', { strokeLinecap: "round", strokeLinejoin: "round", strokeWidth: 2, d: "M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" })),
+    suppliers: React.createElement('svg', { xmlns: "http://www.w3.org/2000/svg", className: "h-6 w-6", fill: "none", viewBox: "0 0 24 24", stroke: "currentColor" }, React.createElement('path', { strokeLinecap: "round", strokeLinejoin: "round", strokeWidth: 2, d: "M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-5m-9 0H3m2 0h5M9 7h1m-1 4h1m-1 4h1m5-4h1m-1 4h1" })),
     chevronLeft: React.createElement('svg', { xmlns: "http://www.w3.org/2000/svg", className: "h-6 w-6", fill: "none", viewBox: "0 0 24 24", stroke: "currentColor" }, React.createElement('path', { strokeLinecap: "round", strokeLinejoin: "round", strokeWidth: 2, d: "M15 19l-7-7 7-7" })),
     chevronRight: React.createElement('svg', { xmlns: "http://www.w3.org/2000/svg", className: "h-6 w-6", fill: "none", viewBox: "0 0 24 24", stroke: "currentColor" }, React.createElement('path', { strokeLinecap: "round", strokeLinejoin: "round", strokeWidth: 2, d: "M9 5l7 7-7 7" })),
     plus: React.createElement('svg', { xmlns: "http://www.w3.org/2000/svg", className: "h-5 w-5", viewBox: "0 0 20 20", fill: "currentColor" }, React.createElement('path', { fillRule: "evenodd", d: "M10 3a1 1 0 011 1v5h5a1 1 0 110 2h-5v5a1 1 0 11-2 0v-5H4a1 1 0 110-2h5V4a1 1 0 011-1z", clipRule: "evenodd" })),
@@ -115,5 +159,6 @@ export const ICONS = {
     ai: React.createElement('svg', { xmlns: "http://www.w3.org/2000/svg", className: "h-5 w-5", fill: "none", viewBox: "0 0 24 24", stroke: "currentColor", strokeWidth: 2 }, React.createElement('path', { strokeLinecap: "round", strokeLinejoin: "round", d: "M9.75 16.5h4.5m-4.5-4.5h4.5m-4.5-4.5h4.5M3 16.5c0-3.314 2.686-6 6-6h6c3.314 0 6 2.686 6 6v-1.5c0-3.314-2.686-6-6-6h-6c-3.314 0-6 2.686-6 6v1.5Z" })),
     inwards: React.createElement('svg', { xmlns: "http://www.w3.org/2000/svg", className: "h-5 w-5", viewBox: "0 0 20 20", fill: "currentColor" }, React.createElement('path', { fillRule: "evenodd", d: "M3 3a1 1 0 00-1 1v12a1 1 0 001 1h14a1 1 0 001-1V4a1 1 0 00-1-1H3zm10 4a1 1 0 10-2 0v2.586l-1.293-1.293a1 1 0 00-1.414 1.414l3 3a1 1 0 001.414 0l3-3a1 1 0 00-1.414-1.414L11 9.586V7z", clipRule: "evenodd" })),
     outwards: React.createElement('svg', { xmlns: "http://www.w3.org/2000/svg", className: "h-5 w-5", viewBox: "0 0 20 20", fill: "currentColor" }, React.createElement('path', { fillRule: "evenodd", d: "M10 18a8 8 0 100-16 8 8 0 000 16zM7 9a1 1 0 000 2h6a1 1 0 100-2H7z", clipRule: "evenodd" })),
-    print: React.createElement('svg', { xmlns: "http://www.w3.org/2000/svg", className: "h-5 w-5", viewBox: "0 0 20 20", fill: "currentColor" }, React.createElement('path', { fillRule: "evenodd", d: "M5 4v3H4a2 2 0 00-2 2v6a2 2 0 002 2h12a2 2 0 002-2V9a2 2 0 00-2-2h-1V4a2 2 0 00-2-2H7a2 2 0 00-2 2zm8 0H7v3h6V4zm-8 6a1 1 0 011-1h6a1 1 0 110 2H6a1 1 0 01-1-1zm1 3a1 1 0 100 2h6a1 1 0 100-2H6z", clipRule: "evenodd" }))
+    print: React.createElement('svg', { xmlns: "http://www.w3.org/2000/svg", className: "h-5 w-5", viewBox: "0 0 20 20", fill: "currentColor" }, React.createElement('path', { fillRule: "evenodd", d: "M5 4v3H4a2 2 0 00-2 2v6a2 2 0 002 2h12a2 2 0 002-2V9a2 2 0 00-2-2h-1V4a2 2 0 00-2-2H7a2 2 0 00-2 2zm8 0H7v3h6V4zm-8 6a1 1 0 011-1h6a1 1 0 110 2H6a1 1 0 01-1-1zm1 3a1 1 0 100 2h6a1 1 0 100-2H6z", clipRule: "evenodd" })),
+    upload: React.createElement('svg', { xmlns: "http://www.w3.org/2000/svg", className: "h-5 w-5", viewBox: "0 0 20 20", fill: "currentColor" }, React.createElement('path', { d: "M4 3a2 2 0 00-2 2v10a2 2 0 002 2h12a2 2 0 002-2V5a2 2 0 00-2-2H4zm.5 3h11a.5.5 0 01.5.5v1a.5.5 0 01-.5.5h-11a.5.5 0 01-.5-.5v-1a.5.5 0 01.5-.5zM10 12a1 1 0 011-1h3a1 1 0 110 2h-3a1 1 0 01-1-1zm-1 2a1 1 0 000 2h3a1 1 0 100-2H9z" }))
 };

@@ -26,7 +26,36 @@ export interface InventoryItem {
   lastUpdated: string;
 }
 
-export type View = 'dashboard' | 'inventory' | 'billing' | 'reports' | 'history';
+export type PurchaseOrderStatus = 'Pending' | 'Shipped' | 'Delivered' | 'Cancelled';
+
+export interface Supplier {
+  id: number;
+  name: string;
+  contactPerson: string;
+  phone: string;
+  email: string;
+  address: string;
+}
+
+export interface PurchaseOrderItem {
+  inventoryItemId: number;
+  name: string;
+  quantity: number;
+  unit: string;
+  purchasePrice: number;
+}
+
+export interface PurchaseOrder {
+  id: number;
+  supplierId: number;
+  orderDate: string;
+  expectedDeliveryDate: string;
+  items: PurchaseOrderItem[];
+  status: PurchaseOrderStatus;
+  totalValue: number;
+}
+
+export type View = 'dashboard' | 'inventory' | 'billing' | 'reports' | 'history' | 'suppliers';
 
 export interface ChartData {
   name: string;

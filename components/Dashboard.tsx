@@ -34,7 +34,7 @@ const StatCard: React.FC<StatCardProps> = ({ icon, title, value, color, onClick 
 
 const Dashboard: React.FC<DashboardProps> = ({ inventory, lowStockCount, expiringSoonCount, setView }) => {
   const totalValue = inventory.reduce((acc, item) => acc + (item.quantity * item.purchasePrice), 0).toFixed(2);
-  const totalItems = inventory.reduce((acc, item) => acc + item.quantity, 0);
+  const totalProductTypes = inventory.length;
 
   const chartData = inventory.slice(0, 10).map(item => ({
     name: item.name,
@@ -47,7 +47,7 @@ const Dashboard: React.FC<DashboardProps> = ({ inventory, lowStockCount, expirin
       <h2 className="text-3xl font-bold text-light">Dashboard</h2>
       
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
-        <StatCard icon={ICONS.inventory} title="Total Items" value={totalItems} color="bg-blue-500" />
+        <StatCard icon={ICONS.inventory} title="Total Product Types" value={totalProductTypes} color="bg-blue-500" />
         <StatCard icon={<span className="text-2xl font-bold">₹</span>} title="Total Inventory Value" value={`₹${totalValue}`} color="bg-green-500" />
         <StatCard icon={ICONS.warning} title="Low Stock Alerts" value={lowStockCount} color="bg-orange-500" onClick={() => setView('inventory')} />
         <StatCard icon={ICONS.warning} title="Expiring Soon" value={expiringSoonCount} color="bg-red-500" onClick={() => setView('inventory')} />

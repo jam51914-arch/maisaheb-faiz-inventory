@@ -9,15 +9,17 @@ import OutwardsForm from './OutwardsForm';
 import Card from './ui/Card';
 import Input from './ui/Input';
 import Select from './ui/Select';
+import BulkImportModal from './BulkImportModal';
 
 interface InventoryViewProps {
   inventory: InventoryItem[];
   onUpdate: (item: InventoryItem, type: TransactionType, notes?: string) => void;
   onAdd: (item: Omit<InventoryItem, 'id'>) => void;
+  onBulkAdd: (items: Omit<InventoryItem, 'id'>[]) => void;
   onDelete: (id: number) => void;
 }
 
-const InventoryView: React.FC<InventoryViewProps> = ({ inventory, onUpdate, onAdd, onDelete }) => {
+const InventoryView: React.FC<InventoryViewProps> = ({ inventory, onUpdate, onAdd, onBulkAdd, onDelete }) => {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [editingItem, setEditingItem] = useState<InventoryItem | null>(null);
 
@@ -29,6 +31,9 @@ const InventoryView: React.FC<InventoryViewProps> = ({ inventory, onUpdate, onAd
   const [isOutwardsModalOpen, setIsOutwardsModalOpen] = useState(false);
   const [outwardsItem, setOutwardsItem] = useState<InventoryItem | null>(null);
   
+  // State for Import modal
+  const [isImportModalOpen, setIsImportModalOpen] = useState(false);
+
   // State for filters
   const [searchTerm, setSearchTerm] = useState('');
   const [categoryFilter, setCategoryFilter] = useState('');
@@ -188,10 +193,16 @@ const InventoryView: React.FC<InventoryViewProps> = ({ inventory, onUpdate, onAd
     <div className="space-y-6">
       <div className="flex justify-between items-center">
         <h2 className="text-3xl font-bold text-light">Inventory</h2>
-        <Button onClick={() => handleOpenModal()}>
-          {ICONS.plus}
-          Add New Item
-        </Button>
+        <div className="flex gap-2">
+            <Button onClick={() => setIsImportModalOpen(true)} variant="secondary">
+              {ICONS.upload}
+              Bulk Import
+            </Button>
+            <Button onClick={() => handleOpenModal()}>
+              {ICONS.plus}
+              Add New Item
+            </Button>
+        </div>
       </div>
 
       <Card>
@@ -259,7 +270,23 @@ const InventoryView: React.FC<InventoryViewProps> = ({ inventory, onUpdate, onAd
                     <td className="p-3 font-mono">₹{item.purchasePrice.toFixed(2)} / {item.unit}</td>
                     <td className={`p-3 font-medium ${expiryStatus.color}`}>{expiryStatus.text}</td>
                     <td className="p-3">
-                      {isLowStock && <span className="px-2 py-1 text-xs font-semibold rounded-full bg-warning text-dark-accent">Low Stock</span>}
+                      <div className="flex flex-col gap-1 items-start">
+                        {isLowStock && (
+                          <span className="px-2 py-1 text-xs font-semibold rounded-full bg-warning text-dark-accent">
+                            Low Stock
+                          </span>
+                        )}
+                        {expiryStatus.text === 'Expired' && (
+                          <span className="px-2 py-1 text-xs font-semibold rounded-full bg-danger text-light">
+                            Expired
+                          </span>
+                        )}
+                        {expiryStatus.text === 'Expiring Soon' && (
+                          <span className="px-2 py-1 text-xs font-semibold rounded-full bg-yellow-500 text-dark-accent">
+                            Expiring Soon
+                          </span>
+                        )}
+                      </div>
                     </td>
                     <td className="p-3">
                       <div className="flex items-center gap-2">
@@ -302,6 +329,12 @@ const InventoryView: React.FC<InventoryViewProps> = ({ inventory, onUpdate, onAd
         onClose={handleCloseOutwardsModal}
         onConfirm={handleConfirmOutwards}
         item={outwardsItem}
+      />
+
+      <BulkImportModal
+        isOpen={isImportModalOpen}
+        onClose={() => setIsImportModalOpen(false)}
+        onImport={onBulkAdd}
       />
     </div>
   );
